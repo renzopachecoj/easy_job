@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:strings/strings.dart';
 import 'utils/constants.dart';
+import 'postular.dart';
 
 class JobsListing extends StatefulWidget {
   JobsListing(BuildContext context) : super();
@@ -48,6 +49,7 @@ class _JobsListingState extends State<JobsListing> {
           .getDocuments()
           .then((querySnapshot) {
         querySnapshot.documents.forEach((result) {
+          result.data["id"] = result.documentID;
           listaAnuncios.add(result.data);
         });
       });
@@ -458,7 +460,12 @@ class _JobsListingState extends State<JobsListing> {
                                                         style:
                                                             CARD_BUTTON_TEXT_STYLE,
                                                       ),
-                                                      onPressed: () {/* ... */},
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(builder: (context) => Postular(anuncio: anuncio),),
+                                                        );
+                                                      },
                                                     ),
                                                 ],
                                               ),
