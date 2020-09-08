@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:strings/strings.dart';
 import './../../utils/constants.dart';
 import './jobsPosting.dart';
+import '../../components/textFieldCustomized.dart';
 
 class NewJobPostPage extends StatefulWidget {
   NewJobPostPage(BuildContext context) : super();
@@ -15,21 +16,29 @@ enum Jornada { Completa, MedioTiempo }
 enum Contrato { LargoPlazo, Temporal }
 
 class _NewJobPostState extends State<NewJobPostPage> {
-  var anuncios = [];
   final firestoreInstance = Firestore.instance;
-  final searchFilterController = TextEditingController();
+  final searchFilterControllerCargo = TextEditingController();
+  final searchFilterControllerDetalles = TextEditingController();
+  String cargo;
+  String contrato = 'largo plazo';
+  String detalles;
+  String jornada = 'completa';
 
   @override
   void dispose() {
-    searchFilterController.dispose();
+    searchFilterControllerCargo.dispose();
+    searchFilterControllerDetalles.dispose();
     super.dispose();
   }
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
+  _sendInfoToDB([filtro = ""]) async {
+    await this.firestoreInstance.collection('anuncios').add({
+      'cargo': cargo,
+      'contrato': contrato,
+      'detalles': detalles,
+      'fecha': DateTime.now(),
+      'jornada': jornada,
+      'usuarioId': 'u7ChfWo3QykdKxGExzS7'
     });
   }
 
@@ -55,57 +64,40 @@ class _NewJobPostState extends State<NewJobPostPage> {
                 decoration: BoxDecoration(color: Color(0xff40B491)),
               ),
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text('Inicio'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.face),
-                  title: Text('Perfil'),
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              selectedItemColor: Color(0xff40B491),
-              onTap: _onItemTapped,
-            ),
-            body: Center(
-                child: Column(children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Crear Anuncio',
-                style: PAGE_TITLE,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: EdgeInsets.all(PADDING),
-                child: Column(
-                  children: <Widget>[
-                    TextField(
-                      style: RESULT_TEXT_STYLE,
-                      decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.all(10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff40B491)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff40B491)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xff40B491)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          hintText: 'Cargo'),
-                      controller: searchFilterController,
-                      maxLines: 1,
+            body: ListView(
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                children: <Widget>[
+                  Center(
+                    child: Text(
+                      'Crear Anuncio',
+                      style: PAGE_TITLE,
                     ),
-                    Text('Jornada', style: CARD_TITLE_STYLE),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Cargo', style: CARD_TITLE_STYLE),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFieldCustomized(
+                    text: 'Cargo',
+                    style: RESULT_TEXT_STYLE,
+                    maxLines: 1,
+                    controller: searchFilterControllerCargo,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Jornada', style: CARD_TITLE_STYLE),
+                  ),
+                  Column(children: <Widget>[
                     ListTile(
                       title: const Text('Completa'),
                       leading: Radio(
@@ -130,54 +122,91 @@ class _NewJobPostState extends State<NewJobPostPage> {
                         },
                       ),
                     ),
-                    Text('Contrato', style: CARD_TITLE_STYLE),
-                    ListTile(
-                      title: const Text('Lafayette'),
-                      leading: Radio(
-                        value: Contrato.LargoPlazo,
-                        groupValue: _contrato,
-                        onChanged: (Contrato value) {
-                          setState(() {
-                            _contrato = value;
-                          });
-                        },
+                  ]),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Contrato', style: CARD_TITLE_STYLE),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ListTile(
+                        title: const Text('Largo Plazo'),
+                        leading: Radio(
+                          value: Contrato.LargoPlazo,
+                          groupValue: _contrato,
+                          onChanged: (Contrato value) {
+                            setState(() {
+                              _contrato = value;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Temporal'),
+                        leading: Radio(
+                          value: Contrato.Temporal,
+                          groupValue: _contrato,
+                          onChanged: (Contrato value) {
+                            setState(() {
+                              _contrato = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Detalles', style: CARD_TITLE_STYLE),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFieldCustomized(
+                    text: 'Escribe aquí los detalles del cargo',
+                    style: RESULT_TEXT_STYLE,
+                    maxLines: 6,
+                    controller: searchFilterControllerDetalles,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      cargo = searchFilterControllerCargo.text;
+                      detalles = searchFilterControllerDetalles.text;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JobsPostingPage(context)));
+                      _sendInfoToDB();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: Colors.grey.shade200,
+                                offset: Offset(2, 4),
+                                blurRadius: 5,
+                                spreadRadius: 2)
+                          ],
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [Color(0xff40B491), Color(0xff246752)])),
+                      child: Text(
+                        'Publicar',
+                        style: TextStyle(fontSize: 17, color: Colors.white),
                       ),
                     ),
-                    ListTile(
-                      title: const Text('Thomas Jefferson'),
-                      leading: Radio(
-                        value: Contrato.Temporal,
-                        groupValue: _contrato,
-                        onChanged: (Contrato value) {
-                          setState(() {
-                            _contrato = value;
-                          });
-                        },
-                      ),
-                    ),
-                    Text('Detalles', style: CARD_TITLE_STYLE),
-                    TextField(
-                      style: RESULT_TEXT_STYLE,
-                      decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.all(10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff40B491)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff40B491)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xff40B491)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          hintText: 'Escribe aquí los detalles del cargo'),
-                      controller: searchFilterController,
-                      maxLines: 6,
-                    ),
-                  ],
-                ),
-              ),
-            ]))));
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ])));
   }
 }
