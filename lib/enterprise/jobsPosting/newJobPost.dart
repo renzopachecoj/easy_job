@@ -1,21 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:strings/strings.dart';
 import './../../utils/constants.dart';
-import './jobsPosting.dart';
 import '../../components/textFieldCustomized.dart';
 
 class NewJobPostPage extends StatefulWidget {
-  NewJobPostPage(BuildContext context) : super();
+  final String mail;
+  NewJobPostPage(String mail, BuildContext context)
+      : this.mail = mail,
+        super();
 
   @override
-  _NewJobPostState createState() => _NewJobPostState();
+  _NewJobPostState createState() => _NewJobPostState(mail);
 }
 
 enum Jornada { Completa, MedioTiempo }
 enum Contrato { LargoPlazo, Temporal }
 
 class _NewJobPostState extends State<NewJobPostPage> {
+  final String mail;
+  _NewJobPostState(this.mail);
+  Jornada _jornada = Jornada.Completa;
+  Contrato _contrato = Contrato.LargoPlazo;
+
   final firestoreInstance = Firestore.instance;
   final searchFilterControllerCargo = TextEditingController();
   final searchFilterControllerDetalles = TextEditingController();
@@ -31,7 +37,7 @@ class _NewJobPostState extends State<NewJobPostPage> {
     super.dispose();
   }
 
-  _sendInfoToDB([filtro = ""]) async {
+  _sendInfoToDB() async {
     await this.firestoreInstance.collection('anuncios').add({
       'cargo': cargo,
       'contrato': contrato,
@@ -44,9 +50,6 @@ class _NewJobPostState extends State<NewJobPostPage> {
 
   @override
   Widget build(BuildContext context) {
-    Jornada _jornada = Jornada.Completa;
-    Contrato _contrato = Contrato.LargoPlazo;
-
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -61,7 +64,10 @@ class _NewJobPostState extends State<NewJobPostPage> {
             appBar: AppBar(
               title: Text("EasyJob"),
               flexibleSpace: Container(
-                decoration: BoxDecoration(color: Color(0xff40B491)),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Color(0xff40B491), Color(0xff246752)]),
+                ),
               ),
             ),
             body: ListView(
@@ -175,10 +181,13 @@ class _NewJobPostState extends State<NewJobPostPage> {
                     onTap: () {
                       cargo = searchFilterControllerCargo.text;
                       detalles = searchFilterControllerDetalles.text;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => JobsPostingPage(context)));
+                      SnackBar(
+                        content: Text('Se ha publicado el trabajo con éxito!'),
+                        duration:
+                            new Duration(hours: 0, minutes: 0, seconds: 5),
+                        backgroundColor: Color(0xff4CAF50),
+                      );
+                      Navigator.pop(context);
                       _sendInfoToDB();
                     },
                     child: Container(
