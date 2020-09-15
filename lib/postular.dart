@@ -39,10 +39,12 @@ class Postular  extends StatelessWidget {
         body: Container(
           padding: EdgeInsets.all(16.0),
           child: Column(
-            children: [
-              Text(
-                'POSTULAR: ' + anuncio["cargo"],
-                style: CARD_BUTTON_TEXT_STYLE,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'Postular: ' + anuncio["cargo"],
+                  style: PAGE_TITLE,
+                ),
               ),
               Form(
                   key: _formKey,
@@ -157,13 +159,54 @@ class Postular  extends StatelessWidget {
                                 borderRadius: BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
-                        RaisedButton(
-                          onPressed: () {
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InkWell(
+                          onTap: () {
                             if (_formKey.currentState.validate()) {
-                              createPostulacion();
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                        title: Text("Postulación Exitosa"),
+                                        content: Text("Ha postulado correctamente."),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text('ACEPTAR'),
+                                            onPressed: () {
+                                              createPostulacion();
+                                              Navigator.pop(context);
+                                            },
+                                          )
+                                        ]);
+                                  });
+                              Navigator.pop(context);
                             }
                           },
-                          child: Text('Postular'),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                      color: Colors.grey.shade200,
+                                      offset: Offset(2, 4),
+                                      blurRadius: 5,
+                                      spreadRadius: 2)
+                                ],
+                                gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [Color(0xff40B491), Color(0xff246752)])),
+                            child: Text(
+                              'Postular',
+                              style: TextStyle(fontSize: 17, color: Colors.white),
+                            ),
+                          ),
                         )
                       ],
                     ),
