@@ -1,7 +1,8 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_signup/main.dart';
+//import 'package:flutter_login_signup/main.dart';
 import 'jobsListing.dart';
+import './loginAndSignup/welcomePage.dart';
+
 
 void main() => runApp(EasyJobApp());
 

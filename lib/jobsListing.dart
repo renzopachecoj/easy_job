@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:strings/strings.dart';
 import 'utils/constants.dart';
 import 'postular.dart';
 import 'jobsListingWidgets.dart';
@@ -179,8 +178,7 @@ class _JobsListingState extends State<JobsListing> {
                       )
                     : Container(),
                 body: Center(
-                    child: 
-                    !_inProfile
+                    child: !_inProfile
                         ? Column(children: <Widget>[
                             Padding(
                               padding: EdgeInsets.all(PADDING),
@@ -191,27 +189,27 @@ class _JobsListingState extends State<JobsListing> {
                                 style: BODY_TITLE_STYLE,
                               ),
                             ),
-                            if(!_isFiltering)
-                            SearchBarWidget(
-                              isSearching: _isSearching,
-                              isLoading: _isLoading,
-                              searchCargo: _searchCargo,
-                              loadAnunciosFeed: _loadAnunciosFeed,
-                              setIsLoading: _switchIsLoading,
-                              setIsSearching: _switchIsSearching,
-                              searchFilterController: _searchFilterController,
-                            ),
-                            if(!_isSearching)
-                            FilterBarWidget(
-                              dropDownValue: _dropDownValue,
-                              isFiltering: _isFiltering,
-                              isLoading: _isLoading,
-                              setDropDownValue: _setDropDownValue,
-                              setIsFiltering: _switchIsFiltering,
-                              setIsLoading: _switchIsLoading,
-                              loadAnunciosFeed: _loadAnunciosFeed,
-                              filterJornada: _filterJornada,
-                            ),
+                            if (!_isFiltering)
+                              SearchBarWidget(
+                                isSearching: _isSearching,
+                                isLoading: _isLoading,
+                                searchCargo: _searchCargo,
+                                loadAnunciosFeed: _loadAnunciosFeed,
+                                setIsLoading: _switchIsLoading,
+                                setIsSearching: _switchIsSearching,
+                                searchFilterController: _searchFilterController,
+                              ),
+                            if (!_isSearching)
+                              FilterBarWidget(
+                                dropDownValue: _dropDownValue,
+                                isFiltering: _isFiltering,
+                                isLoading: _isLoading,
+                                setDropDownValue: _setDropDownValue,
+                                setIsFiltering: _switchIsFiltering,
+                                setIsLoading: _switchIsLoading,
+                                loadAnunciosFeed: _loadAnunciosFeed,
+                                filterJornada: _filterJornada,
+                              ),
                             _isLoading
                                 ? Center(
                                     child: CircularProgressIndicator(

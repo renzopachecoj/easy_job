@@ -24,3 +24,7 @@ const ALERT_TEXT_STYLE =
     TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w400);
 const CARD_ELEVATION = 10.0;
 const BORDER_RADIUS = 10.0;
+const PAGE_TITLE = TextStyle(
+    color: MAIN_THEME_COLOR,
+    fontSize: 16.0,
+    fontWeight: FontWeight.w500);
