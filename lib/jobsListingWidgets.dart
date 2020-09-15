@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_job/main.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'package:strings/strings.dart';
-import 'jobsListing.dart';
 import 'postular.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -372,9 +371,7 @@ class ProfilePage extends StatelessWidget {
           child: Text("CERRAR SESION"),
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => JobsListing("", false)));
+                context, MaterialPageRoute(builder: (context) => EasyJobApp()));
           })
     ]);
   }

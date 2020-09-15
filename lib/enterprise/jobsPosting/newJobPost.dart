@@ -28,7 +28,7 @@ class _NewJobPostState extends State<NewJobPostPage> {
   String cargo;
   String contrato = 'largo plazo';
   String detalles;
-  String jornada = 'completa';
+  String jornada = 'tiempo completo';
 
   @override
   void dispose() {
@@ -44,7 +44,7 @@ class _NewJobPostState extends State<NewJobPostPage> {
       'detalles': detalles,
       'fecha': DateTime.now(),
       'jornada': jornada,
-      'usuarioId': 'u7ChfWo3QykdKxGExzS7'
+      'usuarioId': mail
     });
   }
 
@@ -77,7 +77,7 @@ class _NewJobPostState extends State<NewJobPostPage> {
                   Center(
                     child: Text(
                       'Crear Anuncio',
-                      style: PAGE_TITLE,
+                      style: PAGE_TITLE_ANUNCIO,
                     ),
                   ),
                   SizedBox(
@@ -105,7 +105,7 @@ class _NewJobPostState extends State<NewJobPostPage> {
                   ),
                   Column(children: <Widget>[
                     ListTile(
-                      title: const Text('Completa'),
+                      title: const Text('Tiempo Completo'),
                       leading: Radio(
                         value: Jornada.Completa,
                         groupValue: _jornada,
