@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'loginAndSignup/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'jobsListingWidgets.dart';
@@ -33,17 +32,6 @@ class _JobsListingState extends State<JobsListing> {
   _switchIsLoading(newState) {
     setState(() {
       _isLoading = newState;
-    });
-  }
-
-  _isPostulante(String mail, String password) async {
-    await this
-        ._firestoreInstance
-        .collection("usuarios")
-        .where("correo", isEqualTo: mail)
-        .getDocuments()
-        .then((querySnapshot) {
-      setState(() {});
     });
   }
 
@@ -174,31 +162,6 @@ class _JobsListingState extends State<JobsListing> {
                         gradient: LinearGradient(
                             colors: [Color(0xff40B491), Color(0xff246752)])),
                   ),
-                  actions: <Widget>[
-                    _inProfile
-                        ? IconButton(
-                            icon: Icon(Icons.home),
-                            onPressed: () {
-                              _loadAnunciosFeed();
-                              setState(() {
-                                _inProfile = false;
-                              });
-                            },
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.face),
-                            onPressed: () {
-                              isLoggedIn
-                                  ? setState(() {
-                                      _inProfile = true;
-                                    })
-                                  : Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => WelcomePage()));
-                            },
-                          )
-                  ],
                 ),
                 floatingActionButton: !_isAspirante
                     ? FloatingActionButton(

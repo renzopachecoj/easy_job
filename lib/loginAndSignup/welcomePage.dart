@@ -85,6 +85,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ]),
     );
   }
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -130,7 +131,7 @@ class _WelcomePageState extends State<WelcomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _backButton(),
+              // _backButton(),
               _title(),
               SizedBox(
                 height: 80,
@@ -143,7 +144,6 @@ class _WelcomePageState extends State<WelcomePage> {
               SizedBox(
                 height: 20,
               ),
-              
             ],
           ),
         ),
