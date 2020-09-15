@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'loginAndSignup/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'jobsListingWidgets.dart';
-import 'enterprise/jobsPosting/newJobPost.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;
-  final _isLoggedIn;
-  const JobsListing(this.usuario, this._isLoggedIn);
+  final isLoggedIn;
+  const JobsListing(this.usuario, this.isLoggedIn);
   @override
   _JobsListingState createState() => _JobsListingState();
 }
@@ -28,17 +26,6 @@ class _JobsListingState extends State<JobsListing> {
   _switchIsLoading(newState) {
     setState(() {
       _isLoading = newState;
-    });
-  }
-
-  _isPostulante(String mail, String password) async {
-    await this
-        ._firestoreInstance
-        .collection("usuarios")
-        .where("correo", isEqualTo: mail)
-        .getDocuments()
-        .then((querySnapshot) {
-      setState(() {});
     });
   }
 
@@ -195,51 +182,14 @@ class _JobsListingState extends State<JobsListing> {
                         gradient: LinearGradient(
                             colors: [Color(0xff40B491), Color(0xff246752)])),
                   ),
-                  actions: <Widget>[
-                    _inProfile
-                        ? IconButton(
-                            icon: Icon(Icons.home),
-                            onPressed: () {
-                              _loadAnunciosFeed();
-                              setState(() {
-                                _inProfile = false;
-                              });
-                            },
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.face),
-                            onPressed: () {
-                              widget._isLoggedIn
-                                  ? setState(() {
-                                      _inProfile = true;
-                                    })
-                                  : Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => WelcomePage()));
-                            },
-                          )
-                  ],
                 ),
                 floatingActionButton: !(userData["tipo"] == "aspirante")
                     ? FloatingActionButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      NewJobPostPage(widget.usuario, context)));
+                          // Add your onPressed code here!
                         },
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          child: Icon(Icons.add, size: 40),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                                colors: [Color(0xff40B491), Color(0xff246752)]),
-                          ),
-                        ),
+                        child: Icon(Icons.add, size: 40),
+                        backgroundColor: MAIN_THEME_COLOR,
                       )
                     : Container(),
                 body: Center(
@@ -308,7 +258,9 @@ class _JobsListingState extends State<JobsListing> {
                                                               "aspirante"),
                                                       verDetalles: _verDetalles,
                                                       loadAnunciosFeed:
-                                                          _loadAnunciosFeed);
+                                                          _loadAnunciosFeed,
+                                                      isLoggedIn:
+                                                          widget.isLoggedIn);
                                                 }),
                                           ),
                                         ),

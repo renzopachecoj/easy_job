@@ -215,13 +215,15 @@ class AnuncioCard extends StatelessWidget {
   final isAspirante;
   final verDetalles;
   final loadAnunciosFeed;
+  final isLoggedIn;
 
   AnuncioCard(
       {this.anuncio,
       this.getAutorAnuncio,
       this.isAspirante,
       this.loadAnunciosFeed,
-      this.verDetalles});
+      this.verDetalles,
+      this.isLoggedIn});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -301,6 +303,7 @@ class AnuncioCard extends StatelessWidget {
                 anuncio: anuncio,
                 verDetalles: verDetalles,
                 loadAnunciosFeed: loadAnunciosFeed,
+                isLoggedIn: isLoggedIn
               )
             ])));
   }
@@ -311,12 +314,13 @@ class AnuncioCardActions extends StatelessWidget {
   final anuncio;
   final verDetalles;
   final loadAnunciosFeed;
+  final isLoggedIn;
 
   AnuncioCardActions(
       {this.isAspirante,
       this.anuncio,
       this.verDetalles,
-      this.loadAnunciosFeed});
+      this.loadAnunciosFeed, this.isLoggedIn});
   @override
   Widget build(BuildContext context) {
     return ButtonBar(children: <Widget>[
@@ -329,7 +333,7 @@ class AnuncioCardActions extends StatelessWidget {
           verDetalles(anuncio);
         },
       ),
-      if (isAspirante)
+      if (isAspirante && isLoggedIn)
         FlatButton(
             child: Text(
               'POSTULAR',
