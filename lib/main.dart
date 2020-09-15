@@ -12,7 +12,7 @@ class EasyJobApp extends StatelessWidget {
   Widget build(BuildContext context) {
     List widgets = <Widget>[
       WelcomePage(),
-      JobsListing(null, true, context),
+      JobsListing("", false),
     ];
     return MaterialApp(
       title: 'EasyJob',
