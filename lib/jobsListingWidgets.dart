@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'package:strings/strings.dart';
+import 'jobsListing.dart';
+import 'postular.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final isSearching;
@@ -341,7 +343,7 @@ class AnuncioCardActions extends StatelessWidget {
                 style: CARD_BUTTON_TEXT_STYLE,
               ),
               onPressed: () {
-                /*
+                
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -350,7 +352,7 @@ class AnuncioCardActions extends StatelessWidget {
                         anuncio:
                             anuncio),
               ),
-            );*/
+            );
               },
             )
           : FlatButton(
@@ -378,12 +380,17 @@ _getOrderedDetails(anuncio) {
 }
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage();
+  final userData;
+  ProfilePage(this.userData);
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Text("Detalles de usuario aqui"),
-      RaisedButton(child: Text("CERRAR SESION"), onPressed: () {})
+      Text("Perfil"),
+      Text(userData["nombre"]),
+      Text("LinkedIn: "+userData["perfilLinkedIn"]),
+      RaisedButton(child: Text("CERRAR SESION"), onPressed: () {
+        Navigator.push(context,
+                MaterialPageRoute(builder: (context) => JobsListing("", false)));})
     ]);
   }
 }

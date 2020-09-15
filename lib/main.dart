@@ -16,7 +16,7 @@ class EasyJobApp extends StatelessWidget {
         fontFamily: 'Rubik',
       ),
       debugShowCheckedModeBanner: false,
-      home: JobsListing(context),
+      home: JobsListing("",false),
     );
   }
 }

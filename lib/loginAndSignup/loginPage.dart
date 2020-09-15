@@ -24,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   final userPasswordController = TextEditingController();
   final firestoreInstance = Firestore.instance;
   bool validUser = false;
-  bool isAspirante = true;
 
   @override
   void dispose() {
@@ -34,28 +33,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _validateAccount(String mail, String password) async {
-    await this
+    var snapshots = await this
         .firestoreInstance
         .collection("usuarios")
         .where("correo", isEqualTo: mail)
         .where("clave", isEqualTo: password)
-        .getDocuments()
-        .then((querySnapshot) {
-          setState(() {
-            validUser = true;
-          }); 
-    });
-    await this
-        .firestoreInstance
-        .collection("usuarios")
-        .where("correo", isEqualTo: mail)
-        .where("clave", isEqualTo: password)
-        .where("tipo", isEqualTo: "empleador")
-        .getDocuments()
-        .then((querySnapshot) {setState(() {
-          isAspirante = false;
-        });
-    });
+        .getDocuments();
+    if (snapshots.documents.isNotEmpty) {
+      setState(() {
+        validUser = true;
+      });
+    }
   }
 
   Widget _backButton() {
@@ -112,15 +100,16 @@ class _LoginPageState extends State<LoginPage> {
         String password = userPasswordController.text;
         _validateAccount(mail, password);
         if (validUser) {
-          if (isAspirante) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => JobsListing(context,)));
-          } else {
+          print(validUser);
+          //if (isAspirante) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => JobsListing(mail, true)));
+          /*} else {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => EnterprisePage(mail, context)));
-          }
+          }*/
         } else {
           return showDialog(
               context: context,
