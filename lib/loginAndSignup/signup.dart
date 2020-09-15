@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => JobsListing(context)));
+                  builder: (context) => JobsListing(userMailController.text, true, context)));
         } else {
           Navigator.push(
               context,

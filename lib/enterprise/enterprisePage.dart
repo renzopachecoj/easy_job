@@ -31,7 +31,7 @@ class _EnterpriseState extends State<EnterprisePage> {
   @override
   void initState() {
     super.initState();
-    JobsListing(context);
+    JobsListing(mail, false, context);
   }
 
   int _selectedIndex = 0;
@@ -45,7 +45,7 @@ class _EnterpriseState extends State<EnterprisePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      JobsListing(context),
+      JobsListing(mail, false, context),
       JobsPostingPage(mail, context),
     ];
     return GestureDetector(

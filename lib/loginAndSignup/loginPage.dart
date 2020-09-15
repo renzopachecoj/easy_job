@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../components/bezierContainer.dart';
 import '../jobsListing.dart';
 import '../enterprise/enterprisePage.dart';
@@ -43,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         .then((querySnapshot) {
           setState(() {
             validUser = true;
-          }); 
+          });
     });
     await this
         .firestoreInstance
@@ -52,7 +51,8 @@ class _LoginPageState extends State<LoginPage> {
         .where("clave", isEqualTo: password)
         .where("tipo", isEqualTo: "empleador")
         .getDocuments()
-        .then((querySnapshot) {setState(() {
+        .then((querySnapshot) {
+          setState(() {
           isAspirante = false;
         });
     });
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
         if (validUser) {
           if (isAspirante) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => JobsListing(context,)));
+                MaterialPageRoute(builder: (context) => JobsListing(mail, false, context)));
           } else {
             Navigator.push(
                 context,

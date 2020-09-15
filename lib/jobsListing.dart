@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_job/loginAndSignup/welcomePage.dart';
+import 'loginAndSignup/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'postular.dart';
 import 'jobsListingWidgets.dart';
-import 'loginAndSignup/loginPage.dart';
 
 class JobsListing extends StatefulWidget {
-  JobsListing(BuildContext context) : super();
+  final String mail;
+  final bool isAspirante;
+
+  JobsListing( mail, bool isAspirante, BuildContext context)
+      : this.mail = mail,
+        this.isAspirante = isAspirante,
+        super();
 
   @override
   _JobsListingState createState() => _JobsListingState();
 }
 
 class _JobsListingState extends State<JobsListing> {
-  
+
   var isLoggedIn = false;
   var _isAspirante = true;
   var _isLoading = true;
@@ -30,6 +35,19 @@ class _JobsListingState extends State<JobsListing> {
   _switchIsLoading(newState) {
     setState(() {
       _isLoading = newState;
+    });
+  }
+
+  _isPostulante(String mail, String password) async {
+    await this
+        ._firestoreInstance
+        .collection("usuarios")
+        .where("correo", isEqualTo: mail)
+        .getDocuments()
+        .then((querySnapshot) {
+      setState(() {
+
+      });
     });
   }
 
@@ -127,6 +145,12 @@ class _JobsListingState extends State<JobsListing> {
 
   @override
   Widget build(BuildContext context) {
+    _isAspirante = widget.isAspirante;
+    if(widget.mail != null){
+      isLoggedIn = true;
+    }
+    print(widget.mail);
+    print(widget.isAspirante);
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
