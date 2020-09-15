@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/bezierContainer.dart';
 import 'loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../jobsListing/jobsListing.dart';
+import '../jobsListing.dart';
 import '../enterprise/enterprisePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
