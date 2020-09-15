@@ -4,13 +4,20 @@ import './../jobsListing/jobsListing.dart';
 import './jobsPosting/jobsPosting.dart';
 
 class EnterprisePage extends StatefulWidget {
-  EnterprisePage(BuildContext context) : super();
+  final String mail;
+
+  EnterprisePage(String mail, BuildContext context)
+      : this.mail = mail,
+        super();
 
   @override
-  _EnterpriseState createState() => _EnterpriseState();
+  _EnterpriseState createState() => _EnterpriseState(mail);
 }
 
 class _EnterpriseState extends State<EnterprisePage> {
+  final String mail;
+  _EnterpriseState(this.mail);
+
   var anuncios = [];
   final firestoreInstance = Firestore.instance;
   final searchFilterController = TextEditingController();
@@ -39,7 +46,7 @@ class _EnterpriseState extends State<EnterprisePage> {
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
       JobsListingPage(context),
-      JobsPostingPage(context),
+      JobsPostingPage(mail, context),
     ];
     return GestureDetector(
         onTap: () {

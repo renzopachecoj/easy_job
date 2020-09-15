@@ -192,8 +192,16 @@ class _JobsListingState extends State<JobsListingPage> {
               onPressed: () {
                 // Add your onPressed code here!
               },
-              child: Icon(Icons.add, size: 40),
-              backgroundColor: Color(0xff40B491),
+              child: Container(
+                width: 60,
+                height: 60,
+                child: Icon(Icons.add, size: 40),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                      colors: [Color(0xff40B491), Color(0xff246752)]),
+                ),
+              ),
             ),
             body: Center(
                 child: Column(children: <Widget>[
