@@ -5,13 +5,20 @@ import './../../utils/constants.dart';
 import './newJobPost.dart';
 
 class JobsPostingPage extends StatefulWidget {
-  JobsPostingPage(BuildContext context) : super();
+  final String mail;
+
+  JobsPostingPage(String mail, BuildContext context)
+      : this.mail = mail,
+        super();
 
   @override
-  _JobsPostingState createState() => _JobsPostingState();
+  _JobsPostingState createState() => _JobsPostingState(mail);
 }
 
 class _JobsPostingState extends State<JobsPostingPage> {
+  final String mail;
+  _JobsPostingState(this.mail);
+
   var _isLoading = true;
   var _isSearching = false;
   var anuncios = [];
@@ -36,8 +43,8 @@ class _JobsPostingState extends State<JobsPostingPage> {
       await this
           .firestoreInstance
           .collection("anuncios")
-          .where("cargo", isEqualTo: "secretaria")
           .orderBy("fecha", descending: true)
+          .where("usuarioId", isEqualTo: mail)
           .getDocuments()
           .then((querySnapshot) {
         querySnapshot.documents.forEach((result) {
@@ -53,6 +60,7 @@ class _JobsPostingState extends State<JobsPostingPage> {
           .firestoreInstance
           .collection("anuncios")
           .orderBy("fecha", descending: true)
+          .where("usuarioId", isEqualTo: mail)
           .where("cargo", isEqualTo: filtro)
           .getDocuments()
           .then((querySnapshot) {
@@ -173,7 +181,10 @@ class _JobsPostingState extends State<JobsPostingPage> {
             appBar: AppBar(
               title: Text("EasyJob"),
               flexibleSpace: Container(
-                decoration: BoxDecoration(color: Color(0xff40B491)),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Color(0xff40B491), Color(0xff246752)]),
+                ),
               ),
               actions: <Widget>[
                 _isSearching
@@ -195,10 +206,18 @@ class _JobsPostingState extends State<JobsPostingPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NewJobPostPage(context)));
+                        builder: (context) => NewJobPostPage(mail, context)));
               },
-              child: Icon(Icons.add, size: 40),
-              backgroundColor: Color(0xff40B491),
+              child: Container(
+                height: 60,
+                width: 60,
+                child: Icon(Icons.add, size: 40),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                      colors: [Color(0xff40B491), Color(0xff246752)]),
+                ),
+              ),
             ),
             body: Center(
                 child: Column(children: <Widget>[
