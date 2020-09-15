@@ -5,8 +5,8 @@ import 'jobsListingWidgets.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;
-  final _isLoggedIn;
-  const JobsListing(this.usuario, this._isLoggedIn);
+  final isLoggedIn;
+  const JobsListing(this.usuario, this.isLoggedIn);
   @override
   _JobsListingState createState() => _JobsListingState();
 }
@@ -258,7 +258,8 @@ class _JobsListingState extends State<JobsListing> {
                                                               "aspirante"),
                                                       verDetalles: _verDetalles,
                                                       loadAnunciosFeed:
-                                                          _loadAnunciosFeed);
+                                                          _loadAnunciosFeed,
+                                                          isLoggedIn: widget.isLoggedIn);
                                                 }),
                                           ),
                                         ),
