@@ -1,6 +1,7 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_signup/main.dart';
+import 'jobsListing.dart';
 
 void main() => runApp(EasyJobApp());
 
@@ -14,7 +15,7 @@ class EasyJobApp extends StatelessWidget {
         fontFamily: 'Rubik',
       ),
       debugShowCheckedModeBanner: false,
-      home: MyApp(),
+      home: JobsListing(context),
     );
   }
 }
