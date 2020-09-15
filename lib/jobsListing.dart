@@ -38,9 +38,7 @@ class _JobsListingState extends State<JobsListing> {
         .where("correo", isEqualTo: mail)
         .getDocuments()
         .then((querySnapshot) {
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -71,7 +69,7 @@ class _JobsListingState extends State<JobsListing> {
 
   _loadAnunciosFeed() async {
     List<dynamic> listaAnuncios = [];
-    if (widget.usuario == "" || userData["tipo"]=="aspirante") {
+    if (widget.usuario == "" || userData["tipo"] == "aspirante") {
       await this
           ._firestoreInstance
           .collection("anuncios")
@@ -84,7 +82,7 @@ class _JobsListingState extends State<JobsListing> {
         });
       });
     } else {
-       await this
+      await this
           ._firestoreInstance
           .collection("anuncios")
           .orderBy("fecha", descending: true)
@@ -98,9 +96,9 @@ class _JobsListingState extends State<JobsListing> {
       });
     }
     setState(() {
-        _isLoading = false;
-        this._anuncios = listaAnuncios;
-      });
+      _isLoading = false;
+      this._anuncios = listaAnuncios;
+    });
   }
 
   _getUserData(usuario) async {
@@ -166,10 +164,6 @@ class _JobsListingState extends State<JobsListing> {
         builder: (BuildContext context) {
           return DetailsPopUp(anuncioDetails: anuncio);
         });
-  }
-
-  _deleteAnuncio(id) async {
-    await this._firestoreInstance.collection("anuncios").document(id).delete();
   }
 
   @override
@@ -299,8 +293,6 @@ class _JobsListingState extends State<JobsListing> {
                                                           (userData["tipo"] ==
                                                               "aspirante"),
                                                       verDetalles: _verDetalles,
-                                                      deleteAnuncio:
-                                                          _deleteAnuncio,
                                                       loadAnunciosFeed:
                                                           _loadAnunciosFeed);
                                                 }),

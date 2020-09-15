@@ -99,7 +99,6 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        //if (isAspirante) {
         Navigator.push(
             context,
             MaterialPageRoute(
