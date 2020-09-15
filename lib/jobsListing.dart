@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_job/loginAndSignup/welcomePage.dart';
+import 'loginAndSignup/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'postular.dart';
 import 'jobsListingWidgets.dart';
-import 'loginAndSignup/loginPage.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;
   final _isLoggedIn;
   const JobsListing(this.usuario, this._isLoggedIn);
-
   @override
   _JobsListingState createState() => _JobsListingState();
 }
@@ -30,6 +28,19 @@ class _JobsListingState extends State<JobsListing> {
   _switchIsLoading(newState) {
     setState(() {
       _isLoading = newState;
+    });
+  }
+
+  _isPostulante(String mail, String password) async {
+    await this
+        ._firestoreInstance
+        .collection("usuarios")
+        .where("correo", isEqualTo: mail)
+        .getDocuments()
+        .then((querySnapshot) {
+      setState(() {
+
+      });
     });
   }
 

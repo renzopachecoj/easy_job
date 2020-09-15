@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+/*import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../jobsListing.dart';
 import './jobsPosting/jobsPosting.dart';
@@ -32,7 +32,7 @@ class _EnterpriseState extends State<EnterprisePage> {
   void initState() {
     super.initState();
     JobsListing({}, true);
-  }
+
 
   int _selectedIndex = 0;
 
@@ -45,8 +45,7 @@ class _EnterpriseState extends State<EnterprisePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      JobsListing({}, true),
-      JobsPostingPage(mail, context),
+      JobsListing("", true),
     ];
     return GestureDetector(
         onTap: () {
@@ -80,3 +79,10 @@ class _EnterpriseState extends State<EnterprisePage> {
         ));
   }
 }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+*/

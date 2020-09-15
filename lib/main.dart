@@ -17,6 +17,7 @@ class EasyJobApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: JobsListing("",false),
+
     );
   }
 }

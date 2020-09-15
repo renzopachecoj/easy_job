@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../components/bezierContainer.dart';
 import '../jobsListing.dart';
 import '../enterprise/enterprisePage.dart';
@@ -44,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
         validUser = true;
       });
     }
+
   }
 
   Widget _backButton() {
@@ -100,8 +100,6 @@ class _LoginPageState extends State<LoginPage> {
         String password = userPasswordController.text;
         _validateAccount(mail, password);
         if (validUser) {
-          print(validUser);
-          //if (isAspirante) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => JobsListing(mail, true)));
           /*} else {
