@@ -4,14 +4,14 @@ import 'package:strings/strings.dart';
 import 'utils/constants.dart';
 import 'postular.dart';
 
-class JobsListing extends StatefulWidget {
-  JobsListing(BuildContext context) : super();
+class JobsListingPage extends StatefulWidget {
+  JobsListingPage(BuildContext context) : super();
 
   @override
-  _JobsListingState createState() => _JobsListingState();
+  _JobsListingPageState createState() => _JobsListingPageState();
 }
 
-class _JobsListingState extends State<JobsListing> {
+class _JobsListingPageState extends State<JobsListingPage> {
   var _isLoading = true;
   var _isSearching = false;
   var _isEmpleador = false;
@@ -463,7 +463,12 @@ class _JobsListingState extends State<JobsListing> {
                                                       onPressed: () {
                                                         Navigator.push(
                                                           context,
-                                                          MaterialPageRoute(builder: (context) => Postular(anuncio: anuncio),),
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Postular(
+                                                                    anuncio:
+                                                                        anuncio),
+                                                          ),
                                                         );
                                                       },
                                                     ),
