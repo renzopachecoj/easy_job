@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_job/loginAndSignup/welcomePage.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'postular.dart';
 import 'jobsListingWidgets.dart';
+import 'loginAndSignup/loginPage.dart';
 
 class JobsListing extends StatefulWidget {
   JobsListing(BuildContext context) : super();
@@ -12,6 +14,8 @@ class JobsListing extends StatefulWidget {
 }
 
 class _JobsListingState extends State<JobsListing> {
+  
+  var isLoggedIn = false;
   var _isAspirante = true;
   var _isLoading = true;
   var _isSearching = false;
@@ -19,6 +23,7 @@ class _JobsListingState extends State<JobsListing> {
   var _inProfile = false;
   var _searchFilterController = TextEditingController();
   var _anuncios = [];
+
   String _dropDownValue = "Elegir Jornada";
   final _firestoreInstance = Firestore.instance;
 
@@ -161,9 +166,15 @@ class _JobsListingState extends State<JobsListing> {
                         : IconButton(
                             icon: Icon(Icons.face),
                             onPressed: () {
-                              setState(() {
-                                _inProfile = true;
-                              });
+                              isLoggedIn
+                                  ? setState(() {
+                                      _inProfile = true;
+                                    })
+                                  : Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WelcomePage()));
                             },
                           )
                   ],

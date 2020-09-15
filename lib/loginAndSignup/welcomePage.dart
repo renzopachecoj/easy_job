@@ -85,6 +85,26 @@ class _WelcomePageState extends State<WelcomePage> {
           ]),
     );
   }
+  Widget _backButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
+              child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
+            ),
+            Text('Regresar',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +130,7 @@ class _WelcomePageState extends State<WelcomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              _backButton(),
               _title(),
               SizedBox(
                 height: 80,
@@ -122,6 +143,7 @@ class _WelcomePageState extends State<WelcomePage> {
               SizedBox(
                 height: 20,
               ),
+              
             ],
           ),
         ),

@@ -41,8 +41,9 @@ class _LoginPageState extends State<LoginPage> {
         .where("clave", isEqualTo: password)
         .getDocuments()
         .then((querySnapshot) {
-      int usuario = querySnapshot.documents.length;
-      if (usuario > 0) validUser = true;
+          setState(() {
+            validUser = true;
+          }); 
     });
     await this
         .firestoreInstance
@@ -51,9 +52,9 @@ class _LoginPageState extends State<LoginPage> {
         .where("clave", isEqualTo: password)
         .where("tipo", isEqualTo: "empleador")
         .getDocuments()
-        .then((querySnapshot) {
-      int empleadores = querySnapshot.documents.length;
-      if (empleadores > 0) isAspirante = false;
+        .then((querySnapshot) {setState(() {
+          isAspirante = false;
+        });
     });
   }
 
@@ -108,13 +109,12 @@ class _LoginPageState extends State<LoginPage> {
     return InkWell(
       onTap: () {
         String mail = userMailController.text;
-        _validateAccount(mail, userPasswordController.text);
+        String password = userPasswordController.text;
+        _validateAccount(mail, password);
         if (validUser) {
           if (isAspirante) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => JobsListing(context)));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => JobsListing(context,)));
           } else {
             Navigator.push(
                 context,
@@ -122,7 +122,22 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context) => EnterprisePage(mail, context)));
           }
         } else {
-          print("Not valid user!");
+          return showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text("Error de inicio de sesión"),
+                    content: Text("Usuario o clave incorrectos"),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('CERRAR'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ]);
+              });
         }
       },
       child: Container(
@@ -322,15 +337,15 @@ class _LoginPageState extends State<LoginPage> {
                   _emailPasswordWidget(),
                   SizedBox(height: 20),
                   _submitButton(),
-                  Container(
+                  /*Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,
                     child: Text('¿Olvidaste tu contraseña?',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500)),
-                  ),
-                  _divider(),
-                  _facebookButton(),
+                  ),*/
+                  //_divider(),
+                  //_facebookButton(),
                   _createAccountLabel(),
                 ],
               ),
