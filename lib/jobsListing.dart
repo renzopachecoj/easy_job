@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'jobsListingWidgets.dart';
+import 'enterprise/jobsPosting/newJobPost.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;
@@ -186,10 +187,22 @@ class _JobsListingState extends State<JobsListing> {
                 floatingActionButton: !(userData["tipo"] == "aspirante")
                     ? FloatingActionButton(
                         onPressed: () {
-                          // Add your onPressed code here!
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      NewJobPostPage(widget.usuario, context)));
                         },
-                        child: Icon(Icons.add, size: 40),
-                        backgroundColor: MAIN_THEME_COLOR,
+                        child: Container(
+                          height: 60,
+                          width: 60,
+                          child: Icon(Icons.add, size: 40),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                                colors: [Color(0xff40B491), Color(0xff246752)]),
+                          ),
+                        ),
                       )
                     : Container(),
                 body: Center(
