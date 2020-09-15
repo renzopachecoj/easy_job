@@ -146,15 +146,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.5"
-  flutter_login_signup:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e7bca4b0bc18858cf0d0a1e954172571b2030adc
-      url: "https://github.com/jpvazque/flutter_login_signup.git"
-    source: git
-    version: "1.0.0+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -166,7 +157,7 @@ packages:
     source: sdk
     version: "0.0.0"
   google_fonts:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: google_fonts
       url: "https://pub.dartlang.org"
