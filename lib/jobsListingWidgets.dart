@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'package:strings/strings.dart';
+import 'jobsListing.dart';
+import 'postular.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final isSearching;
@@ -190,7 +192,6 @@ class DetailsPopUp extends StatelessWidget {
                     style: ALERT_BOLD_TEXT_STYLE, textAlign: TextAlign.left)
               ]),
               Container(
-                
                   child: Text(entry.value,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 10,
@@ -215,13 +216,11 @@ class AnuncioCard extends StatelessWidget {
   final isAspirante;
   final verDetalles;
   final loadAnunciosFeed;
-  final deleteAnuncio;
 
   AnuncioCard(
       {this.anuncio,
       this.getAutorAnuncio,
       this.isAspirante,
-      this.deleteAnuncio,
       this.loadAnunciosFeed,
       this.verDetalles});
   @override
@@ -303,7 +302,6 @@ class AnuncioCard extends StatelessWidget {
                 anuncio: anuncio,
                 verDetalles: verDetalles,
                 loadAnunciosFeed: loadAnunciosFeed,
-                deleteAnuncio: deleteAnuncio,
               )
             ])));
   }
@@ -314,14 +312,12 @@ class AnuncioCardActions extends StatelessWidget {
   final anuncio;
   final verDetalles;
   final loadAnunciosFeed;
-  final deleteAnuncio;
 
   AnuncioCardActions(
       {this.isAspirante,
       this.anuncio,
       this.verDetalles,
-      this.loadAnunciosFeed,
-      this.deleteAnuncio});
+      this.loadAnunciosFeed});
   @override
   Widget build(BuildContext context) {
     return ButtonBar(children: <Widget>[
@@ -334,34 +330,20 @@ class AnuncioCardActions extends StatelessWidget {
           verDetalles(anuncio);
         },
       ),
-      isAspirante
-          ? FlatButton(
-              child: Text(
-                'POSTULAR',
-                style: CARD_BUTTON_TEXT_STYLE,
-              ),
-              onPressed: () {
-                /*
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    Postular(
-                        anuncio:
-                            anuncio),
-              ),
-            );*/
-              },
-            )
-          : FlatButton(
-              child: Text(
-                'ELIMINAR',
-                style: CARD_BUTTON_TEXT_STYLE,
-              ),
-              onPressed: () {
-                deleteAnuncio();
-                loadAnunciosFeed();
-              })
+      if (isAspirante)
+        FlatButton(
+            child: Text(
+              'POSTULAR',
+              style: CARD_BUTTON_TEXT_STYLE,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Postular(anuncio: anuncio),
+                ),
+              );
+            })
     ]);
   }
 }
@@ -378,12 +360,22 @@ _getOrderedDetails(anuncio) {
 }
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage();
+  final userData;
+  ProfilePage(this.userData);
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Text("Detalles de usuario aqui"),
-      RaisedButton(child: Text("CERRAR SESION"), onPressed: () {})
+      Text("Perfil"),
+      Text(userData["nombre"]),
+      Text("LinkedIn: " + userData["perfilLinkedIn"]),
+      RaisedButton(
+          child: Text("CERRAR SESION"),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => JobsListing("", false)));
+          })
     ]);
   }
 }

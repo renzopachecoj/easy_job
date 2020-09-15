@@ -5,21 +5,15 @@ import 'utils/constants.dart';
 import 'jobsListingWidgets.dart';
 
 class JobsListing extends StatefulWidget {
-  final String mail;
-  final bool isAspirante;
-
-  JobsListing(mail, bool isAspirante, BuildContext context)
-      : this.mail = mail,
-        this.isAspirante = isAspirante,
-        super();
-
+  final usuario;
+  final _isLoggedIn;
+  const JobsListing(this.usuario, this._isLoggedIn);
   @override
   _JobsListingState createState() => _JobsListingState();
 }
 
 class _JobsListingState extends State<JobsListing> {
-  var isLoggedIn = false;
-  var _isAspirante = true;
+  var userData = {};
   var _isLoading = true;
   var _isSearching = false;
   var _isFiltering = false;
@@ -68,27 +62,63 @@ class _JobsListingState extends State<JobsListing> {
   @override
   void initState() {
     super.initState();
+    _getUserData(widget.usuario);
     _loadAnunciosFeed();
   }
 
   _loadAnunciosFeed() async {
     List<dynamic> listaAnuncios = [];
-
-    await this
-        ._firestoreInstance
-        .collection("anuncios")
-        .orderBy("fecha", descending: true)
-        .getDocuments()
-        .then((querySnapshot) {
-      querySnapshot.documents.forEach((result) {
-        result.data["id"] = result.documentID;
-        listaAnuncios.add(result.data);
+    if (widget.usuario == "" || userData["tipo"] == "aspirante") {
+      await this
+          ._firestoreInstance
+          .collection("anuncios")
+          .orderBy("fecha", descending: true)
+          .getDocuments()
+          .then((querySnapshot) {
+        querySnapshot.documents.forEach((result) {
+          result.data["id"] = result.documentID;
+          listaAnuncios.add(result.data);
+        });
       });
-    });
+    } else {
+      await this
+          ._firestoreInstance
+          .collection("anuncios")
+          .orderBy("fecha", descending: true)
+          .where("usuarioId", isEqualTo: widget.usuario)
+          .getDocuments()
+          .then((querySnapshot) {
+        querySnapshot.documents.forEach((result) {
+          result.data["id"] = result.documentID;
+          listaAnuncios.add(result.data);
+        });
+      });
+    }
     setState(() {
       _isLoading = false;
       this._anuncios = listaAnuncios;
     });
+  }
+
+  _getUserData(usuario) async {
+    if (widget.usuario == "") {
+      setState(() {
+        userData = {"tipo": "aspirante"};
+      });
+    } else {
+      await this
+          ._firestoreInstance
+          .collection("usuarios")
+          .where("correo", isEqualTo: usuario)
+          .getDocuments()
+          .then((querySnapshot) {
+        querySnapshot.documents.forEach((result) {
+          setState(() {
+            userData = result.data;
+          });
+        });
+      });
+    }
   }
 
   _searchCargo(String filtro) {
@@ -135,18 +165,8 @@ class _JobsListingState extends State<JobsListing> {
         });
   }
 
-  _deleteAnuncio(id) async {
-    await this._firestoreInstance.collection("anuncios").document(id).delete();
-  }
-
   @override
   Widget build(BuildContext context) {
-    _isAspirante = widget.isAspirante;
-    if (widget.mail != null) {
-      isLoggedIn = true;
-    }
-    print(widget.mail);
-    print(widget.isAspirante);
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -188,7 +208,7 @@ class _JobsListingState extends State<JobsListing> {
                         : IconButton(
                             icon: Icon(Icons.face),
                             onPressed: () {
-                              isLoggedIn
+                              widget._isLoggedIn
                                   ? setState(() {
                                       _inProfile = true;
                                     })
@@ -200,7 +220,7 @@ class _JobsListingState extends State<JobsListing> {
                           )
                   ],
                 ),
-                floatingActionButton: !_isAspirante
+                floatingActionButton: !(userData["tipo"] == "aspirante")
                     ? FloatingActionButton(
                         onPressed: () {
                           // Add your onPressed code here!
@@ -215,7 +235,7 @@ class _JobsListingState extends State<JobsListing> {
                             Padding(
                               padding: EdgeInsets.all(PADDING),
                               child: Text(
-                                !_isAspirante
+                                !(userData["tipo"] == "aspirante")
                                     ? "Mis Anuncios"
                                     : "Empleos para ti",
                                 style: BODY_TITLE_STYLE,
@@ -270,10 +290,10 @@ class _JobsListingState extends State<JobsListing> {
                                                       anuncio: anuncio,
                                                       getAutorAnuncio:
                                                           _getAutorAnuncio,
-                                                      isAspirante: _isAspirante,
+                                                      isAspirante:
+                                                          (userData["tipo"] ==
+                                                              "aspirante"),
                                                       verDetalles: _verDetalles,
-                                                      deleteAnuncio:
-                                                          _deleteAnuncio,
                                                       loadAnunciosFeed:
                                                           _loadAnunciosFeed);
                                                 }),
@@ -281,6 +301,6 @@ class _JobsListingState extends State<JobsListing> {
                                         ),
                                       )
                           ])
-                        : ProfilePage()))));
+                        : ProfilePage(userData)))));
   }
 }

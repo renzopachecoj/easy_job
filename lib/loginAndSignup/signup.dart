@@ -99,18 +99,12 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        if (isAspirante) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => JobsListing(userMailController.text, true, context)));
-        } else {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      EnterprisePage(userMailController.text, context)));
-        }
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    JobsListing(userMailController.text, true)));
+
         _sendInfoToDB();
       },
       child: Container(
