@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import '../components/jobsListingWidgets.dart';
 import '../jobsPosting/newJobPost.dart';
+import '../main.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;
@@ -183,6 +184,40 @@ class _JobsListingState extends State<JobsListing> {
                         gradient: LinearGradient(
                             colors: [Color(0xff40B491), Color(0xff246752)])),
                   ),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.exit_to_app),
+                      onPressed: () {
+                        return showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                  title: Text("Cerrar sesión"),
+                                  content:
+                                      Text("Aceptar para cerrar la sesión"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('REGRESAR'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    FlatButton(
+                                      child: Text('ACEPTAR'),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EasyJobApp()));
+                                      },
+                                    )
+                                  ]);
+                            });
+                      },
+                    )
+                  ],
                 ),
                 floatingActionButton: !(userData["tipo"] == "aspirante")
                     ? FloatingActionButton(

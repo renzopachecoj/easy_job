@@ -50,7 +50,9 @@ class _PostulacionListingState extends State<PostulacionListing> {
         appBar: AppBar(
             title: Text("EasyJob"),
             flexibleSpace: Container(
-              decoration: BoxDecoration(color: Color(0xff40B491)),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Color(0xff40B491), Color(0xff246752)])),
             )),
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -60,8 +62,11 @@ class _PostulacionListingState extends State<PostulacionListing> {
               Center(
                   child: Text(
                 'Postulación: ' + widget.anuncio["cargo"],
-                style: PAGE_TITLE,
+                style: PAGE_TITLE_ANUNCIO,
               )),
+              SizedBox(
+                height: 10,
+              ),
               _postulaciones.isEmpty
                   ? Column(children: <Widget>[
                       Text("No hay postulaciones para mostrar",
