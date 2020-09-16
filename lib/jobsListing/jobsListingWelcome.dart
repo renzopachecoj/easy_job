@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'utils/constants.dart';
-import 'jobsListingWidgets.dart';
+import '../utils/constants.dart';
+import '../components/jobsListingWidgets.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;
@@ -259,7 +259,8 @@ class _JobsListingState extends State<JobsListing> {
                                                       verDetalles: _verDetalles,
                                                       loadAnunciosFeed:
                                                           _loadAnunciosFeed,
-                                                          isLoggedIn: widget.isLoggedIn);
+                                                      isLoggedIn:
+                                                          widget.isLoggedIn);
                                                 }),
                                           ),
                                         ),

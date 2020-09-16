@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'utils/constants.dart';
-import 'jobsListingWidgets.dart';
-import 'enterprise/jobsPosting/newJobPost.dart';
+import '../utils/constants.dart';
+import '../components/jobsListingWidgets.dart';
+import '../jobsPosting/newJobPost.dart';
 
 class JobsListing extends StatefulWidget {
   final usuario;

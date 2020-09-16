@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import './../../utils/constants.dart';
-import '../../components/textFieldCustomized.dart';
+import '../utils/constants.dart';
+import '../components/textFieldCustomized.dart';
 
 class NewJobPostPage extends StatefulWidget {
   final String mail;
@@ -192,7 +192,8 @@ class _NewJobPostState extends State<NewJobPostPage> {
                                     child: Text('ACEPTAR'),
                                     onPressed: () {
                                       cargo = searchFilterControllerCargo.text;
-                                      detalles = searchFilterControllerDetalles.text;
+                                      detalles =
+                                          searchFilterControllerDetalles.text;
                                       _sendInfoToDB();
                                       Navigator.pop(context);
                                     },

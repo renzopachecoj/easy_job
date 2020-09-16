@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_login_signup/main.dart';
-import 'jobsListingWelcome.dart';
-import './loginAndSignup/welcomePage.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import './jobsListing/jobsListingWelcome.dart';
+import './loginAndSignup/welcomePage.dart';
 
 void main() => runApp(EasyJobApp());
 
 class EasyJobApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     List widgets = <Widget>[
@@ -32,4 +30,3 @@ class EasyJobApp extends StatelessWidget {
     );
   }
 }
-// JobsListing(null, true, context),

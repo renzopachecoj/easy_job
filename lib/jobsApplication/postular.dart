@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'utils/constants.dart';
+import '../utils/constants.dart';
 
-class Postular  extends StatelessWidget {
-
+class Postular extends StatelessWidget {
   final anuncio;
   Postular({Key key, @required this.anuncio}) : super(key: key);
 
@@ -17,7 +16,8 @@ class Postular  extends StatelessWidget {
   final databaseReference = Firestore.instance;
 
   void createPostulacion() async {
-    DocumentReference ref = await databaseReference.collection("postulaciones").add({
+    DocumentReference ref =
+        await databaseReference.collection("postulaciones").add({
       'anuncioId': anuncio["id"],
       'curriculum': pathController.text,
       'nombre': nameController.text,
@@ -74,8 +74,10 @@ class Postular  extends StatelessWidget {
                               borderSide: BorderSide(color: Color(0xff40B491)),
                             ),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xff40B491)),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                borderSide:
+                                    BorderSide(color: Color(0xff40B491)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
                         Text(
@@ -83,7 +85,9 @@ class Postular  extends StatelessWidget {
                           style: CARD_BUTTON_TEXT_STYLE,
                         ), // Teléfono
                         TextFormField(
-                          inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
                           validator: (value) {
                             if (value.isEmpty || value.length != 10) {
                               return 'Por favor, ingrese un teléfono válido (11 dígitos).';
@@ -102,8 +106,10 @@ class Postular  extends StatelessWidget {
                               borderSide: BorderSide(color: Color(0xff40B491)),
                             ),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xff40B491)),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                borderSide:
+                                    BorderSide(color: Color(0xff40B491)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
                         Text(
@@ -128,8 +134,10 @@ class Postular  extends StatelessWidget {
                               borderSide: BorderSide(color: Color(0xff40B491)),
                             ),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xff40B491)),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                borderSide:
+                                    BorderSide(color: Color(0xff40B491)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
                         Text(
@@ -154,8 +162,10 @@ class Postular  extends StatelessWidget {
                               borderSide: BorderSide(color: Color(0xff40B491)),
                             ),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xff40B491)),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                borderSide:
+                                    BorderSide(color: Color(0xff40B491)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
                         SizedBox(
@@ -170,7 +180,8 @@ class Postular  extends StatelessWidget {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                         title: Text("Postulación Exitosa"),
-                                        content: Text("Ha postulado correctamente."),
+                                        content:
+                                            Text("Ha postulado correctamente."),
                                         actions: <Widget>[
                                           FlatButton(
                                             child: Text('ACEPTAR'),
@@ -189,7 +200,8 @@ class Postular  extends StatelessWidget {
                             padding: EdgeInsets.symmetric(vertical: 10),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
                                       color: Colors.grey.shade200,
@@ -200,10 +212,14 @@ class Postular  extends StatelessWidget {
                                 gradient: LinearGradient(
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
-                                    colors: [Color(0xff40B491), Color(0xff246752)])),
+                                    colors: [
+                                      Color(0xff40B491),
+                                      Color(0xff246752)
+                                    ])),
                             child: Text(
                               'Postular',
-                              style: TextStyle(fontSize: 17, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 17, color: Colors.white),
                             ),
                           ),
                         )

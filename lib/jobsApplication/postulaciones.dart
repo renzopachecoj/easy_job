@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'utils/constants.dart';
 import 'package:strings/strings.dart';
+import '../utils/constants.dart';
 
 class PostulacionListing extends StatefulWidget {
   final anuncio;
@@ -14,7 +14,6 @@ class PostulacionListing extends StatefulWidget {
 class _PostulacionListingState extends State<PostulacionListing> {
   var _postulaciones = [];
 
-  final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final titleController = TextEditingController();
@@ -59,33 +58,30 @@ class _PostulacionListingState extends State<PostulacionListing> {
           child: Column(
             children: <Widget>[
               Center(
-                child: Text(
-                  'Postulación: ' + widget.anuncio["cargo"],
-                  style: PAGE_TITLE,
-                )
-              ),
+                  child: Text(
+                'Postulación: ' + widget.anuncio["cargo"],
+                style: PAGE_TITLE,
+              )),
               _postulaciones.isEmpty
                   ? Column(children: <Widget>[
-                Text("No hay postulaciones para mostrar",
-                    style: RESULT_TEXT_STYLE),
-                Icon(Icons.mood_bad,
-                    size: 100, color: MAIN_THEME_COLOR)
-              ])
+                      Text("No hay postulaciones para mostrar",
+                          style: RESULT_TEXT_STYLE),
+                      Icon(Icons.mood_bad, size: 100, color: MAIN_THEME_COLOR)
+                    ])
                   : Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(PADDING),
-                  child: Scrollbar(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _postulaciones.length,
-                        itemBuilder: (context, i) {
-                          final postulacion = _postulaciones[i];
-                          return PostulacionCard(
-                              postulante: postulacion);
-                        }),
-                  ),
-                ),
-              )
+                      child: Padding(
+                        padding: EdgeInsets.all(PADDING),
+                        child: Scrollbar(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: _postulaciones.length,
+                              itemBuilder: (context, i) {
+                                final postulacion = _postulaciones[i];
+                                return PostulacionCard(postulante: postulacion);
+                              }),
+                        ),
+                      ),
+                    )
             ],
           ),
         ));
@@ -95,8 +91,7 @@ class _PostulacionListingState extends State<PostulacionListing> {
 class PostulacionCard extends StatelessWidget {
   final postulante;
 
-  PostulacionCard(
-      {this.postulante});
+  PostulacionCard({this.postulante});
   @override
   Widget build(BuildContext context) {
     print(postulante);
@@ -129,7 +124,8 @@ class PostulacionCard extends StatelessWidget {
                   Icon(Icons.bookmark, color: CARD_ICON_COLOR),
                   SizedBox(width: CARD_ICON_TEXT_SPACE),
                   Text(postulante["titulo"],
-                      style: CARD_TEXT_STYLE, textAlign: TextAlign.left,
+                      style: CARD_TEXT_STYLE,
+                      textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis)
                 ],
               ),
@@ -140,7 +136,8 @@ class PostulacionCard extends StatelessWidget {
                   Icon(Icons.call, color: CARD_ICON_COLOR),
                   SizedBox(width: CARD_ICON_TEXT_SPACE),
                   Text(postulante["telefono"],
-                      style: CARD_TEXT_STYLE, textAlign: TextAlign.left,
+                      style: CARD_TEXT_STYLE,
+                      textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis)
                 ],
               ),
@@ -153,7 +150,8 @@ class PostulacionCard extends StatelessWidget {
                   Flexible(
                     child: new Container(
                       child: Text(postulante["curriculum"],
-                          style: CARD_TEXT_STYLE, textAlign: TextAlign.left,
+                          style: CARD_TEXT_STYLE,
+                          textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis),
                     ),
                   )

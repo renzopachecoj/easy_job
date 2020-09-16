@@ -1,9 +1,9 @@
 import 'package:easy_job/main.dart';
 import 'package:flutter/material.dart';
-import 'utils/constants.dart';
 import 'package:strings/strings.dart';
-import 'postulaciones.dart';
-import 'postular.dart';
+import '../jobsApplication/postulaciones.dart';
+import '../jobsApplication/postular.dart';
+import '../utils/constants.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final isSearching;
@@ -300,12 +300,11 @@ class AnuncioCard extends StatelessWidget {
                 ],
               ),
               AnuncioCardActions(
-                isAspirante: isAspirante,
-                anuncio: anuncio,
-                verDetalles: verDetalles,
-                loadAnunciosFeed: loadAnunciosFeed,
-                isLoggedIn: isLoggedIn
-              )
+                  isAspirante: isAspirante,
+                  anuncio: anuncio,
+                  verDetalles: verDetalles,
+                  loadAnunciosFeed: loadAnunciosFeed,
+                  isLoggedIn: isLoggedIn)
             ])));
   }
 }
@@ -321,7 +320,8 @@ class AnuncioCardActions extends StatelessWidget {
       {this.isAspirante,
       this.anuncio,
       this.verDetalles,
-      this.loadAnunciosFeed, this.isLoggedIn});
+      this.loadAnunciosFeed,
+      this.isLoggedIn});
   @override
   Widget build(BuildContext context) {
     return ButtonBar(children: <Widget>[
@@ -362,7 +362,6 @@ class AnuncioCardActions extends StatelessWidget {
                 ),
               );
             })
-
     ]);
   }
 }
