@@ -185,8 +185,8 @@ class _NewJobPostState extends State<NewJobPostPage> {
                           barrierDismissible: false,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                title: Text("Postulación Exitosa"),
-                                content: Text("Ha postulado correctamente."),
+                                title: Text("Creación Exitosa"),
+                                content: Text("Se ha creado un puesto correctamente."),
                                 actions: <Widget>[
                                   FlatButton(
                                     child: Text('ACEPTAR'),
