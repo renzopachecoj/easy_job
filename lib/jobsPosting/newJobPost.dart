@@ -186,8 +186,15 @@ class _NewJobPostState extends State<NewJobPostPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                                 title: Text("Creación Exitosa"),
-                                content: Text("Se ha creado un puesto correctamente."),
+                                content: Text(
+                                    "Se ha creado un puesto correctamente."),
                                 actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('CERRAR'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
                                   FlatButton(
                                     child: Text('ACEPTAR'),
                                     onPressed: () {

@@ -32,7 +32,9 @@ class Postular extends StatelessWidget {
         appBar: AppBar(
             title: Text("EasyJob"),
             flexibleSpace: Container(
-              decoration: BoxDecoration(color: Color(0xff40B491)),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Color(0xff40B491), Color(0xff246752)])),
             )),
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -42,8 +44,11 @@ class Postular extends StatelessWidget {
               Center(
                 child: Text(
                   'Postular: ' + anuncio["cargo"],
-                  style: PAGE_TITLE,
+                  style: PAGE_TITLE_ANUNCIO,
                 ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Form(
                   key: _formKey,
@@ -80,6 +85,9 @@ class Postular extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Text(
                           "Teléfono",
                           style: CARD_BUTTON_TEXT_STYLE,
@@ -112,6 +120,9 @@ class Postular extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Text(
                           "Título/Nivel de Educación",
                           style: CARD_BUTTON_TEXT_STYLE,
@@ -139,6 +150,9 @@ class Postular extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Text(
                           "Adjuntar Link a Linkedin",
