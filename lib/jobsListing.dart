@@ -50,9 +50,8 @@ class _JobsListingState extends State<JobsListing> {
 
   @override
   void initState() {
-    super.initState();
     _getUserData(widget.usuario);
-    _loadAnunciosFeed();
+    super.initState();
   }
 
   _loadAnunciosFeed() async {
@@ -98,7 +97,7 @@ class _JobsListingState extends State<JobsListing> {
       await this
           ._firestoreInstance
           .collection("usuarios")
-          .where("correo", isEqualTo: usuario)
+          .where("correo", isEqualTo: widget.usuario)
           .getDocuments()
           .then((querySnapshot) {
         querySnapshot.documents.forEach((result) {
@@ -108,6 +107,7 @@ class _JobsListingState extends State<JobsListing> {
         });
       });
     }
+    _loadAnunciosFeed();
   }
 
   _searchCargo(String filtro) {

@@ -179,16 +179,26 @@ class _NewJobPostState extends State<NewJobPostPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      cargo = searchFilterControllerCargo.text;
-                      detalles = searchFilterControllerDetalles.text;
-                      SnackBar(
-                        content: Text('Se ha publicado el trabajo con éxito!'),
-                        duration:
-                            new Duration(hours: 0, minutes: 0, seconds: 5),
-                        backgroundColor: Color(0xff4CAF50),
-                      );
                       Navigator.pop(context);
-                      _sendInfoToDB();
+                      return showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                title: Text("Postulación Exitosa"),
+                                content: Text("Ha postulado correctamente."),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('ACEPTAR'),
+                                    onPressed: () {
+                                      cargo = searchFilterControllerCargo.text;
+                                      detalles = searchFilterControllerDetalles.text;
+                                      _sendInfoToDB();
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ]);
+                          });
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,

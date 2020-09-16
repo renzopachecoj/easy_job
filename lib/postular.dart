@@ -24,7 +24,6 @@ class Postular  extends StatelessWidget {
       'telefono': phoneController.text,
       'titulo': titleController.text
     });
-    print(ref.documentID);
   }
 
   @override

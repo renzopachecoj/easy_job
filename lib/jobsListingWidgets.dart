@@ -2,6 +2,7 @@ import 'package:easy_job/main.dart';
 import 'package:flutter/material.dart';
 import 'utils/constants.dart';
 import 'package:strings/strings.dart';
+import 'postulaciones.dart';
 import 'postular.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -347,6 +348,21 @@ class AnuncioCardActions extends StatelessWidget {
                 ),
               );
             })
+      else
+        FlatButton(
+            child: Text(
+              'POSTULANTES',
+              style: CARD_BUTTON_TEXT_STYLE,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PostulacionListing(anuncio: anuncio),
+                ),
+              );
+            })
+
     ]);
   }
 }

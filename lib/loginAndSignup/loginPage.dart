@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../components/bezierContainer.dart';
 import '../jobsListing.dart';
-import '../enterprise/enterprisePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
